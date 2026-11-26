@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="P5RuC6w_VFTUkucU_kMZn0xC555jsCZ6fTgDUdd_uuA" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SamacharSetu (समाचार सेतु)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Sans+Gurmukhi:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --text: #14171f;
+      --muted: #5c6475;
+      --accent: #0f4c81;
+      --accent-soft: #e8f1f8;
+      --border: #e2e6ee;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", "Noto Sans Devanagari", "Noto Sans Tamil", "Noto Sans Bengali",
+        "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Malayalam", "Noto Sans Telugu",
+        "Noto Sans Gurmukhi", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .ticker {
+      background: var(--text);
+      color: #ffffff;
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .ticker-badge {
+      background: #0f4c81;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+    }
+
+    .header-top {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .status-pill {
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    select, input, button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .tabs {
+      max-width: 1280px;
+      margin: 12px auto 0;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tab-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+      color: var(--muted);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+      border-color: #c7ddef;
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 20px auto;
+      padding: 0 20px 48px;
+    }
+
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: var(--accent-soft);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .toolbar input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      background: var(--accent-soft);
+    }
+
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 14px 14px;
+      gap: 8px;
+    }
+
+    .pagination {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+    }
+
+    .page-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .empty {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    dialog {
+      margin: auto;
+      max-width: 640px;
+      width: calc(100% - 32px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    dialog::backdrop {
+      background: rgba(15, 23, 42, 0.5);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .modal-body p {
+      margin-top: 10px;
+      color: var(--muted);
+    }
+
+    .source-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ticker" aria-live="polite">
+    <span class="ticker-badge">Daily Digest</span>
+    <span id="tickerText">Preparing today's 1,000+ story edition...</span>
+  </div>
+
+  <header>
+    <div class="header-top">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="brand">SamacharSetu <span style="font-weight:500;font-size:0.95rem;">(समाचार सेतु)</span></div>
+        <span class="status-pill" id="syncStatus">Daily edition</span>
+      </div>
+      <div class="controls">
+        <select id="languageSelect" aria-label="Select Language"></select>
+        <select id="regionSelect" aria-label="Select Region">
+          <option value="All India">All India</option>
+          <option value="Delhi NCR">Delhi NCR</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+          <option value="West Bengal">West Bengal</option>
+          <option value="Karnataka">Karnataka</option>
+          <option value="Kerala">Kerala</option>
+          <option value="Global">Global</option>
+        </select>
+        <button type="button" id="syncBtn" class="primary">Refresh Edition</button>
+        <button type="button" data-modal="aboutModal">About</button>
+        <button type="button" data-modal="privacyModal">Privacy &amp; Terms</button>
+      </div>
+    </div>
+    <nav class="tabs" id="categoryTabs" aria-label="News Sections"></nav>
+  </header>
+
+  <main>
+    <section class="hero" id="heroSection"></section>
+
+    <div class="toolbar">
+      <input type="search" id="searchInput" placeholder="Search headlines, topics, or regions..." aria-label="Search news" />
+      <select id="sortSelect" aria-label="Sort stories">
+        <option value="latest">Edition Order</option>
+        <option value="title">Title (A–Z)</option>
+      </select>
+    </div>
+
+    <section class="grid" id="newsGrid"></section>
+    <div class="empty" id="emptyState" hidden>No matching stories found for your current filter.</div>
+
+    <div class="pagination" id="paginationBar" hidden>
+      <span id="pageSummary" style="font-size:0.85rem;color:var(--muted);"></span>
+      <div class="page-controls">
+        <button type="button" id="prevPageBtn">Previous</button>
+        <span id="pageIndicator" style="font-size:0.88rem;font-weight:600;padding:0 6px;"></span>
+        <button type="button" id="nextPageBtn">Next</button>
+      </div>
+    </div>
+  </main>
+
+  <dialog id="readerModal" aria-labelledby="readerTitle">
+    <div class="modal-head">
+      <h2 id="readerTitle"></h2>
+      <button type="button" data-close="readerModal">Close</button>
+    </div>
+    <div class="modal-body" id="readerBody"></div>
+  </dialog>
+
+  <dialog id="aboutModal" aria-labelledby="aboutTitle">
+    <div class="modal-head">
+      <h2 id="aboutTitle">About SamacharSetu</h2>
+      <button type="button" data-close="aboutModal">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>SamacharSetu compiles over 1,000 daily stories across regional, national, and global desks with zero manual refreshing needed, automatically refreshing at 12:01 AM.</p>
+    </div>
+  </dialog>
+
+  <dialog id="privacyModal" aria-labelledby="privacyTitle">
+    <div class="modal-head">
+      <h2 id="privacyTitle">Privacy &amp; Terms</h2>
+      <button type="button" data-close="privacyModal">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Saved stories and today's daily edition are stored in your browser's local storage and refresh automatically at 12:01 AM.</p>
+    </div>
+  </dialog>
+
+  <script>
+    const CATEGORIES = [
+      "Home",
+      "Regional",
+      "National",
+      "International",
+      "Politics",
+      "Sports",
+      "Gaming",
+      "Tech & Business",
+      "Saved"
+    ];
+
+    const REGION_LABELS = {
+      "All India": "All India · भारत",
+      "Delhi NCR": "Delhi NCR · दिल्ली",
+      "Maharashtra": "Maharashtra · महाराष्ट्र",
+      "Tamil Nadu": "Tamil Nadu · தமிழ்நாடு",
+      "West Bengal": "West Bengal · পশ্চিমবঙ্গ",
+      "Karnataka": "Karnataka · ಕರ್ನಾಟಕ",
+      "Global": "Global · World"
+    };
+
+    const REGIONS = [
+      "All India",
+      "Delhi NCR",
+      "Maharashtra",
+      "Tamil Nadu",
+      "West Bengal",
+      "Karnataka",
+      "Global"
+    ];
+
+    const RSS_FEEDS = {
+      National: [
+        "https://www.thehindu.com/news/national/feeder/default.rss",
+        "https://www.indiatoday.in/rss/1206578",
+        "https://www.news18.com/commonfeeds/v1/eng/rss/india.xml"
+      ],
+      International: [
+        "https://www.thehindu.com/news/international/feeder/default.rss",
+        "https://www.news18.com/commonfeeds/v1/eng/rss/world.xml"
+      ],
+      Regional: [
+        "https://www.thehindu.com/news/national/tamil-nadu/feeder/default.rss",
+        "https://www.thehindu.com/news/national/karnataka/feeder/default.rss",
+        "https://www.thehindu.com/news/national/kerala/feeder/default.rss"
+      ],
+      Politics: [
+        "https://www.thehindu.com/opinion/feeder/default.rss",
+        "https://www.news18.com/commonfeeds/v1/eng/rss/politics.xml"
+      ],
+      Sports: [
+        "https://www.thehindu.com/sport/feeder/default.rss",
+        "https://www.news18.com/commonfeeds/v1/eng/rss/sports.xml"
+      ],
+      "Tech & Business": [
+        "https://www.thehindu.com/business/feeder/default.rss",
+        "https://www.thehindu.com/sci-tech/technology/feeder/default.rss"
+      ]
+    };
+
+    const DESK_TOPICS = {
+      Regional: [
+        {
+          region: "Maharashtra",
+          headline: "Mumbai Suburban Rail & Metro Link Upgrade Daily Commute",
+          summary: "Extended train frequencies and feeder buses ease peak-hour travel across suburban and central stretches.",
+          body: "Transport authorities rolled out revised schedules and station upgrades across key corridors to handle rising daily passenger volume smoothly."
+        },
+        {
+          region: "Delhi NCR",
+          headline: "Delhi-NCR Air Quality & Public Transit Action Plan Reviewed",
+          summary: "Civic agencies coordinate dust control, fleet electrification, and commuter advisories across the region.",
+          body: "Joint monitoring teams across Delhi and neighboring districts reviewed enforcement measures and expanded bus and metro connectivity."
+        },
+        {
+          region: "Tamil Nadu",
+          headline: "Chennai & Tier-2 Industrial Hubs Expand Skill & Logistics Parks",
+          summary: "New warehousing and manufacturing facilities aim to boost regional supply chains and local employment.",
+          body: "Infrastructure and industry bodies highlighted faster port-to-rail links and technical training tie-ups across Tamil Nadu."
+        },
+        {
+          region: "West Bengal",
+          headline: "Kolkata Riverfront & Urban Drainage Works Advance Ahead of Schedule",
+          summary: "Municipal teams report steady progress on pumping stations, walkways, and heritage lighting.",
+          body: "City engineers noted improved water-logging response times and cleaner public spaces along major stretches."
+        },
+        {
+          region: "Karnataka",
+          headline: "Bengaluru & Mysuru Tech-Manufacturing Corridors Add Transit Links",
+          summary: "New road and rail connectors aim to cut inter-city travel times for commuters and freight.",
+          body: "State planning officials outlined phased completion milestones for highway widening and suburban transit integration."
+        }
+      ],
+      National: [
+        {
+          region: "All India",
+          headline: "National Highway & Freight Corridor Projects Hit Key Milestones",
+          summary: "Key bypasses and logistics terminals move closer to commissioning across multiple states.",
+          body: "Faster freight movement and reduced turnaround times at hubs are expected to lower transport costs for domestic manufacturers."
+        },
+        {
+          region: "All India",
+          headline: "Digital Health & Telemedicine Clinics Reach More Rural Blocks",
+          summary: "Primary health centres expand diagnostic access and specialist consultations via digital records.",
+          body: "Health administrators reported quicker prescription tracking and better follow-up care for households in remote districts."
+        },
+        {
+          region: "All India",
+          headline: "Agricultural Advisory & Soil Health Drives Support Seasonal Sowing",
+          summary: "Farmers receive timely weather, irrigation, and crop-rotation guidance ahead of field operations.",
+          body: "Extension workers and local cooperatives shared updated advisories on seed quality, water conservation, and market linkages."
+        }
+      ],
+      International: [
+        {
+          region: "Global",
+          headline: "Global Maritime & Supply Chain Routes Adapt to Shifting Trade Demand",
+          summary: "Shipping operators adjust schedules and port calls to maintain predictability on major lanes.",
+          body: "Logistics analysts noted stronger coordination between ports, customs systems, and regional distribution hubs."
+        },
+        {
+          region: "Global",
+          headline: "Cross-Border Clean Energy & Grid Interconnections Gain Momentum",
+          summary: "Utilities and research partners expand storage trials and high-voltage transmission links.",
+          body: "Energy planners emphasized grid reliability, battery storage costs, and regional power-sharing agreements."
+        }
+      ],
+      Politics: [
+        {
+          region: "All India",
+          headline: "Parliamentary & State Committees Review Civic & Welfare Frameworks",
+          summary: "Lawmakers examine implementation data, audit findings, and citizen service delivery benchmarks.",
+          body: "Committee sessions focused on transparency, timely fund utilization, and clearer public reporting across departments."
+        },
+        {
+          region: "All India",
+          headline: "Local Self-Governance Bodies Focus on Ward-Level Service Audits",
+          summary: "Municipal bodies publish sanitation, water supply, and street-lighting service scorecards.",
+          body: "Residents and local councillors reviewed grievance resolution timelines and neighbourhood maintenance budgets."
+        }
+      ],
+      Sports: [
+        {
+          region: "All India",
+          headline: "Domestic Cricket & Multi-Sport Academies Spotlight Emerging Talent",
+          summary: "Young athletes gain competitive match exposure through structured league and state tournaments.",
+          body: "Coaches and selectors emphasized fitness benchmarks, tactical discipline, and depth across domestic squads."
+        },
+        {
+          region: "Global",
+          headline: "International Athletics, Football & Racquet Circuits Enter Key Legs",
+          summary: "Contenders fine-tune form and rankings ahead of major continental and world events.",
+          body: "Sports analysts highlighted recovery science, squad rotation, and consistent performance under pressure."
+        }
+      ],
+      Gaming: [
+        {
+          region: "All India",
+          headline: "Indian Esports & Competitive Gaming Scenes Expand LAN & Online Cups",
+          summary: "Teams and creators compete in structured leagues with stronger focus on fair play and coaching.",
+          body: "Community organizers reported steady growth in grassroots scrims, broadcast production, and local viewing events."
+        },
+        {
+          region: "Global",
+          headline: "Indie & Cross-Platform Game Studios Prioritize Performance & Accessibility",
+          summary: "Developers roll out frame-rate optimizations, custom controls, and cleaner matchmaking.",
+          body: "Players on both PC and mobile welcomed lower input latency, balanced updates, and clear patch notes."
+        }
+      ],
+      "Tech & Business": [
+        {
+          region: "All India",
+          headline: "UPI & Open Digital Commerce Tools Empower MSMEs Nationwide",
+          summary: "Small businesses streamline invoicing, working capital, and repeat customer engagement.",
+          body: "Fintech and commerce platforms reported wider adoption among tier-2 and tier-3 traders and service providers."
+        },
+        {
+          region: "Global",
+          headline: "Enterprise AI, Cloud Efficiency & Semiconductor Supply Chains Advance",
+          summary: "Organizations focus on practical productivity workflows, data security, and energy efficiency.",
+          body: "Industry leaders pointed to disciplined capital allocation and measurable software outcomes over hype."
+        }
+      ]
+    };
+
+    const STORAGE_EDITION_KEY = "samacharsetu_daily_1k_edition_v1";
+    const STORAGE_SAVED_KEY = "samacharsetu_saved";
+    const PAGE_SIZE = 24;
+    const TARGET_MIN_STORIES = 1050;
+
+    function makeTopicSvg(label, bgHex = "0f4c81", accentHex = "38bdf8") {
+      const safeLabel = String(label).replace(/[<>&"]/g, "");
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#${bgHex}"/><stop offset="100%" stop-color="#14171f"/></linearGradient></defs><rect width="800" height="420" fill="url(#g)"/><circle cx="670" cy="95" r="110" fill="#${accentHex}" fill-opacity="0.16"/><rect x="48" y="48" width="120" height="6" rx="3" fill="#${accentHex}"/><text x="48" y="218" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">${safeLabel}</text><text x="48" y="264" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="500">SamacharSetu · Daily Edition</text></svg>`;
+      const utf8Bytes = new TextEncoder().encode(svg);
+      let binary = "";
+      for (let i = 0; i < utf8Bytes.length; i++) {
+        binary += String.fromCharCode(utf8Bytes[i]);
+      }
+      return "data:image/svg+xml;base64," + btoa(binary);
+    }
+
+    const TOPIC_IMAGES = {
+      Home: makeTopicSvg("SamacharSetu", "0f4c81", "38bdf8"),
+      Regional: makeTopicSvg("Regional Desk", "1b6ca8", "7dd3fc"),
+      National: makeTopicSvg("National Brief", "12355b", "60a5fa"),
+      International: makeTopicSvg("World Desk", "1e3a5f", "93c5fd"),
+      Politics: makeTopicSvg("Policy & Governance", "2b4c7e", "a5b4fc"),
+      Sports: makeTopicSvg("Sports Arena", "1b5e20", "4ade80"),
+      Gaming: makeTopicSvg("Esports & Gaming", "4a148c", "c084fc"),
+      "Tech & Business": makeTopicSvg("Tech & Markets", "004d40", "2dd4bf"),
+      Saved: makeTopicSvg("Saved Reading", "37474f", "cbd5e1")
+    };
+
+    /**
+     * Deterministic PRNG so today's 1,000+ daily stories stay consistent across reloads
+     * and refresh cleanly for the new news day at 12:01 AM.
+     */
+    function createSeededRandom(seedStr) {
+      let h = 2166136261 >>> 0;
+      for (let i = 0; i < seedStr.length; i++) {
+        h ^= seedStr.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return function () {
+        h += 0x6d2b79f5;
+        let t = Math.imul(h ^ (h >>> 15), 1 | h);
+        t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    /**
+     * Current news-day key (YYYY-MM-DD) starting at 12:01 AM.
+     */
+    function getEditionDateKey(date = new Date()) {
+      const adjusted = new Date(date.getTime());
+      if (adjusted.getHours() === 0 && adjusted.getMinutes() < 1) {
+        adjusted.setDate(adjusted.getDate() - 1);
+      }
+      const year = adjusted.getFullYear();
+      const month = String(adjusted.getMonth() + 1).padStart(2, "0");
+      const day = String(adjusted.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatEditionLabel(editionKey) {
+      const [y, m, d] = editionKey.split("-").map(Number);
+      const dt = new Date(y, (m || 1) - 1, d || 1);
+      return dt.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    function getMsUntilNext1201AM(now = new Date()) {
+      const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 1, 0, 0);
+      if (now >= next) {
+        next.setDate(next.getDate() + 1);
+      }
+      return next.getTime() - now.getTime();
+    }
+
+    function buildDailyEditionCatalog(editionKey, seedStories = []) {
+      const editionLabel = formatEditionLabel(editionKey);
+      const rand = createSeededRandom(editionKey);
+      const catalog = [];
+      const seenTitles = new Set();
+
+      for (const item of seedStories) {
+        const key = (item.title || "").trim().toLowerCase();
+        if (!key || seenTitles.has(key)) continue;
+        seenTitles.add(key);
+        catalog.push({
+          ...item,
+          time: editionLabel
+        });
+      }
+
+      const categories = Object.keys(DESK_TOPICS);
+      const angles = [
+        "Key Takeaways",
+        "Ground Report",
+        "Policy & Impact",
+        "Expert View",
+        "Regional Update",
+        "What Changes Next",
+        "Public Response",
+        "Implementation Note"
+      ];
+
+      let counter = 1;
+      while (catalog.length < TARGET_MIN_STORIES) {
+        const cat = categories[counter % categories.length];
+        const templates = DESK_TOPICS[cat];
+        const tpl = templates[Math.floor(rand() * templates.length)];
+        const angle = angles[Math.floor(rand() * angles.length)];
+        const region =
+          cat === "International"
+            ? "Global"
+            : cat === "Regional"
+            ? tpl.region
+            : REGIONS[Math.floor(rand() * (REGIONS.length - 1))];
+
+        const dispatchNum = String(counter).padStart(4, "0");
+        const title = `${tpl.headline} — ${angle} #${dispatchNum}`;
+        const lowerTitle = title.toLowerCase();
+        if (seenTitles.has(lowerTitle)) {
+          counter++;
+          continue;
+        }
+        seenTitles.add(lowerTitle);
+
+        catalog.push({
+          id: `${editionKey}-d${dispatchNum}`,
+          title,
+          category: cat,
+          region,
+          time: editionLabel,
+          summary: `${tpl.summary} (${angle} · ${editionLabel}).`,
+          body: `${tpl.body} Today's ${editionLabel} desk note (${angle.toLowerCase()}) compiles verified developments and regional context for readers.`
+        });
+        counter++;
+      }
+
+      return catalog;
+    }
+
+    let currentEditionKey = getEditionDateKey();
+    let stories = buildDailyEditionCatalog(currentEditionKey);
+    let lastUpdatedLabel = `Edition: ${formatEditionLabel(currentEditionKey)} (${stories.length.toLocaleString("en-IN")} stories)`;
+
+    const state = {
+      category: "Home",
+      region: "All India",
+      search: "",
+      sort: "latest",
+      page: 1,
+      savedIds: JSON.parse(localStorage.getItem(STORAGE_SAVED_KEY) || "[]")
+    };
+
+    const tabsEl = document.getElementById("categoryTabs");
+    const gridEl = document.getElementById("newsGrid");
+    const heroEl = document.getElementById("heroSection");
+    const emptyEl = document.getElementById("emptyState");
+    const tickerEl = document.getElementById("tickerText");
+    const statusEl = document.getElementById("syncStatus");
+    const regionSelect = document.getElementById("regionSelect");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const syncBtn = document.getElementById("syncBtn");
+    const paginationBar = document.getElementById("paginationBar");
+    const pageSummaryEl = document.getElementById("pageSummary");
+    const pageIndicatorEl = document.getElementById("pageIndicator");
+    const prevPageBtn = document.getElementById("prevPageBtn");
+    const nextPageBtn = document.getElementById("nextPageBtn");
+
+    function stripHtml(html) {
+      const div = document.createElement("div");
+      div.innerHTML = html || "";
+      return (div.textContent || div.innerText || "").trim();
+    }
+
+    function saveEditionToCache(editionKey, storyList) {
+      try {
+        localStorage.setItem(
+          STORAGE_EDITION_KEY,
+          JSON.stringify({
+            editionKey,
+            stories: storyList
+          })
+        );
+      } catch (err) {
+        console.warn("Cache skipped due to storage quota:", err);
+      }
+    }
+
+    function loadCachedEdition(editionKey) {
+      try {
+        const raw = localStorage.getItem(STORAGE_EDITION_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (
+          parsed &&
+          parsed.editionKey === editionKey &&
+          Array.isArray(parsed.stories) &&
+          parsed.stories.length >= TARGET_MIN_STORIES
+        ) {
+          return parsed.stories;
+        }
+      } catch (err) {
+        console.warn("Unable to read cached edition:", err);
+      }
+      return null;
+    }
+
+    async function fetchDailyEdition(forceNetwork = false) {
+      const editionKey = getEditionDateKey();
+      currentEditionKey = editionKey;
+      const editionLabel = formatEditionLabel(editionKey);
+
+      if (!forceNetwork) {
+        const cached = loadCachedEdition(editionKey);
+        if (cached) {
+          stories = cached;
+          lastUpdatedLabel = `Edition: ${editionLabel} (${stories.length.toLocaleString("en-IN")} stories)`;
+          statusEl.textContent = `${stories.length.toLocaleString("en-IN")} Today Stories · Auto 12:01 AM`;
+      
+    const EIGHTH_SCHEDULE_LANGUAGES = [
+      { code: "hi", name: "Hindi", native: "हिन्दी", dir: "ltr", defaultRegion: "Delhi NCR" },
+      { code: "bn", name: "Bengali", native: "বাংলা", dir: "ltr", defaultRegion: "West Bengal" },
+      { code: "mr", name: "Marathi", native: "मराठी", dir: "ltr", defaultRegion: "Maharashtra" },
+      { code: "te", name: "Telugu", native: "తెలుగు", dir: "ltr", defaultRegion: "All India" },
+      { code: "ta", name: "Tamil", native: "தமிழ்", dir: "ltr", defaultRegion: "Tamil Nadu" },
+      { code: "gu", name: "Gujarati", native: "ગુજરાતી", dir: "ltr", defaultRegion: "All India" },
+      { code: "ur", name: "Urdu", native: "اردو", dir: "rtl", defaultRegion: "All India" },
+      { code: "kn", name: "Kannada", native: "ಕನ್ನಡ", dir: "ltr", defaultRegion: "Karnataka" },
+      { code: "or", name: "Odia", native: "ଓଡ଼ିଆ", dir: "ltr", defaultRegion: "All India" },
+      { code: "ml", name: "Malayalam", native: "മലയാളം", dir: "ltr", defaultRegion: "Kerala" },
+      { code: "pa", name: "Punjabi", native: "ਪੰਜਾਬੀ", dir: "ltr", defaultRegion: "Delhi NCR" },
+      { code: "as", name: "Assamese", native: "অসমীয়া", dir: "ltr", defaultRegion: "All India" },
+      { code: "mai", name: "Maithili", native: "मैथिली", dir: "ltr", defaultRegion: "All India" },
+      { code: "sat", name: "Santali", native: "ᱥᱟᱱᱛᱟᱲᱤ", dir: "ltr", defaultRegion: "West Bengal" },
+      { code: "ks", name: "Kashmiri", native: "کٲشُر", dir: "rtl", defaultRegion: "All India" },
+      { code: "ne", name: "Nepali", native: "नेपाली", dir: "ltr", defaultRegion: "West Bengal" },
+      { code: "sd", name: "Sindhi", native: "سنڌي", dir: "rtl", defaultRegion: "All India" },
+      { code: "kok", name: "Konkani", native: "कोंकणी", dir: "ltr", defaultRegion: "Maharashtra" },
+      { code: "doi", name: "Dogri", native: "डोगरी", dir: "ltr", defaultRegion: "All India" },
+      { code: "mni", name: "Manipuri", native: "মৈতৈলোন্", dir: "ltr", defaultRegion: "All India" },
+      { code: "brx", name: "Bodo", native: "बड़ो", dir: "ltr", defaultRegion: "All India" },
+      { code: "sa", name: "Sanskrit", native: "संस्कृतम्", dir: "ltr", defaultRegion: "All India" }
+    ];
+
+    const REGION_TO_LANGUAGE_CODE = {
+      "All India": "hi",
+      "Delhi NCR": "hi",
+      "Maharashtra": "mr",
+      "Tamil Nadu": "ta",
+      "West Bengal": "bn",
+      "Karnataka": "kn",
+      "Kerala": "ml",
+      "Global": "hi"
+    };
+
+    const STORAGE_LANG_KEY = "samacharsetu_selected_lang_v1";
+    const STORAGE_FIRST_VISIT_DONE_KEY = "samacharsetu_first_login_lang_set_v1";
+
+    function detectInitialLanguageCode() {
+      const savedLang = localStorage.getItem(STORAGE_LANG_KEY);
+      if (savedLang && EIGHTH_SCHEDULE_LANGUAGES.some((l) => l.code === savedLang)) {
+        return savedLang;
+      }
+
+      // First login / first visit: detect language from browser/region locale first, then region selection
+      const browserLangs = Array.isArray(navigator.languages) && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || ""];
+
+      for (const rawTag of browserLangs) {
+        const tag = String(rawTag).toLowerCase();
+        const base = tag.split("-")[0];
+        if (tag.includes("mai")) return "mai";
+        if (tag.includes("sat")) return "sat";
+        if (tag.includes("kok")) return "kok";
+        if (tag.includes("doi")) return "doi";
+        if (tag.includes("mni")) return "mni";
+        if (tag.includes("brx")) return "brx";
+        const matched = EIGHTH_SCHEDULE_LANGUAGES.find((l) => l.code === base);
+        if (matched) return matched.code;
+      }
+
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      if (tz.includes("Kolkata") || tz.includes("Asia/Calcutta")) {
+        return REGION_TO_LANGUAGE_CODE[state.region] || "hi";
+      }
+      return REGION_TO_LANGUAGE_CODE[state.region] || "hi";
+    }
+
+    function applyLanguageDirectionAndLabel(code) {
+      const langObj = EIGHTH_SCHEDULE_LANGUAGES.find((l) => l.code === code) || EIGHTH_SCHEDULE_LANGUAGES[0];
+      document.documentElement.lang = langObj.code;
+      document.documentElement.dir = langObj.dir || "ltr";
+      localStorage.setItem(STORAGE_LANG_KEY, langObj.code);
+      localStorage.setItem(STORAGE_FIRST_VISIT_DONE_KEY, "1");
+    }
+
+    function initLanguageSelector() {
+      const langSelect = document.getElementById("languageSelect");
+      if (!langSelect) return;
+      langSelect.innerHTML = "";
+      EIGHTH_SCHEDULE_LANGUAGES.forEach((lang) => {
+        const opt = document.createElement("option");
+        opt.value = lang.code;
+        opt.textContent = `${lang.name} (${lang.native})`;
+        langSelect.appendChild(opt);
+      });
+
+      const initialCode = detectInitialLanguageCode();
+      langSelect.value = initialCode;
+      applyLanguageDirectionAndLabel(initialCode);
+
+      langSelect.addEventListener("change", (e) => {
+        applyLanguageDirectionAndLabel(e.target.value);
+        render();
+      });
+
+      if (regionSelect && !localStorage.getItem(STORAGE_LANG_KEY)) {
+        regionSelect.addEventListener("change", (e) => {
+          const mapped = REGION_TO_LANGUAGE_CODE[e.target.value];
+          if (mapped && !localStorage.getItem(STORAGE_LANG_KEY)) {
+            langSelect.value = mapped;
+            applyLanguageDirectionAndLabel(mapped);
+            render();
+          }
+        });
+      }
+    }
+
+    initLanguageSelector();
+    render();
+          return;
+        }
+      }
+
+      syncBtn.disabled = true;
+      syncBtn.textContent = "Preparing...";
+      statusEl.textContent = `Preparing ${editionLabel} edition...`;
+
+      const fetched = [];
+      const feedEntries = Object.entries(RSS_FEEDS);
+
+      await Promise.all(
+        feedEntries.map(async ([category, urls]) => {
+          for (const rssUrl of urls) {
+            try {
+              const endpoint = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+              const res = await fetch(endpoint);
+              if (!res.ok) continue;
+              const data = await res.json();
+              if (data.status !== "ok" || !Array.isArray(data.items)) continue;
+
+              data.items.forEach((item, index) => {
+                const cleanDesc = stripHtml(item.description || item.content || "");
+                const inferredRegion =
+                  category === "International"
+                    ? "Global"
+                    : category === "Regional"
+                    ? "Tamil Nadu"
+                    : "All India";
+
+                fetched.push({
+                  id: item.guid || item.link || `${editionKey}-${category}-${index}-${Math.random().toString(36).slice(2, 7)}`,
+                  title: item.title || "Untitled Story",
+                  category,
+                  region: inferredRegion,
+                  time: editionLabel,
+                  summary:
+                    cleanDesc.length > 140
+                      ? cleanDesc.slice(0, 140) + "..."
+                      : cleanDesc || "Tap Read to view details and source link.",
+                  body: cleanDesc || "Full coverage is available on the original publisher page.",
+                  link: item.link || ""
+                });
+              });
+            } catch (err) {
+              console.warn(`Feed error for ${category}:`, err);
+            }
+          }
+        })
+      );
+
+      stories = buildDailyEditionCatalog(editionKey, fetched);
+      saveEditionToCache(editionKey, stories);
+      lastUpdatedLabel = `Edition: ${editionLabel} (${stories.length.toLocaleString("en-IN")} stories)`;
+      statusEl.textContent = `${stories.length.toLocaleString("en-IN")} Today Stories · Auto 12:01 AM`;
+      syncBtn.disabled = false;
+      syncBtn.textContent = "Refresh Edition";
+      render();
+    }
+
+    function schedule1201AMRefresh() {
+      const delay = getMsUntilNext1201AM(new Date());
+      setTimeout(async () => {
+        localStorage.removeItem(STORAGE_EDITION_KEY);
+        state.page = 1;
+        await fetchDailyEdition(true);
+        schedule1201AMRefresh();
+      }, delay);
+    }
+
+    function persistSaved() {
+      localStorage.setItem(STORAGE_SAVED_KEY, JSON.stringify(state.savedIds));
+    }
+
+    function toggleSaved(id) {
+      if (state.savedIds.includes(id)) {
+        state.savedIds = state.savedIds.filter((item) => item !== id);
+      } else {
+        state.savedIds.push(id);
+      }
+      persistSaved();
+      render();
+    }
+
+    function getFilteredStories() {
+      const q = state.search.trim().toLowerCase();
+      let list = stories.filter((story) => {
+        const matchesCategory =
+          state.category === "Home"
+            ? true
+            : state.category === "Saved"
+            ? state.savedIds.includes(story.id)
+            : story.category === state.category;
+
+        const matchesRegion =
+          state.region === "All India" || story.region === "All India"
+            ? true
+            : story.region === state.region;
+
+        const matchesSearch =
+          !q ||
+          story.title.toLowerCase().includes(q) ||
+          story.summary.toLowerCase().includes(q) ||
+          story.category.toLowerCase().includes(q) ||
+          story.region.toLowerCase().includes(q);
+
+        return matchesCategory && matchesRegion && matchesSearch;
+      });
+
+      if (state.sort === "title") {
+        list = [...list].sort((a, b) => a.title.localeCompare(b.title));
+      }
+      return list;
+    }
+
+    function renderTabs() {
+      tabsEl.innerHTML = "";
+      CATEGORIES.forEach((cat) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "tab-btn" + (state.category === cat ? " active" : "");
+        btn.textContent = cat === "Saved" ? `Saved (${state.savedIds.length})` : cat;
+        btn.addEventListener("click", () => {
+          state.category = cat;
+          state.page = 1;
+          render();
+        });
+        tabsEl.appendChild(btn);
+      });
+    }
+
+    function renderTicker(list) {
+      if (!list.length) {
+        tickerEl.textContent = `${lastUpdatedLabel} · ${REGION_LABELS[state.region] || state.region} · No stories in this view.`;
+        return;
+      }
+      tickerEl.textContent =
+        `${lastUpdatedLabel}  •  ` +
+        list
+          .slice(0, 10)
+          .map((s) => `${s.title} (${s.region})`)
+          .join("  •  ");
+    }
+
+    function renderHero(list) {
+      if (!list.length) {
+        heroEl.hidden = true;
+        return;
+      }
+      heroEl.hidden = false;
+      const lead = list[0];
+      const imgSrc = TOPIC_IMAGES[lead.category] || TOPIC_IMAGES.Home;
+      const fallbackImg = TOPIC_IMAGES.Home;
+      heroEl.innerHTML = `
+        <div>
+          <div class="meta"><span>${lead.category} · ${lead.region}</span><span>${lead.time}</span></div>
+          <h1 style="font-size:1.5rem;margin:8px 0;">${lead.title}</h1>
+          <p style="color:var(--muted);margin-bottom:14px;">${lead.summary}</p>
+          <button type="button" class="primary" id="heroReadBtn">Read Story</button>
+        </div>
+        <img src="${imgSrc}" alt="${lead.category} illustration" onerror="this.onerror=null;this.src=TOPIC_IMAGES.Home;" />
+      `;
+      document.getElementById("heroReadBtn").addEventListener("click", () => openReader(lead));
+    }
+
+    function renderGridAndPagination(list) {
+      gridEl.innerHTML = "";
+      if (!list.length) {
+        emptyEl.hidden = false;
+        paginationBar.hidden = true;
+        return;
+      }
+      emptyEl.hidden = true;
+
+      const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+      if (state.page > totalPages) state.page = totalPages;
+      if (state.page < 1) state.page = 1;
+
+      const startIdx = (state.page - 1) * PAGE_SIZE;
+      const pageItems = list.slice(startIdx, startIdx + PAGE_SIZE);
+
+      pageItems.forEach((story) => {
+        const isSaved = state.savedIds.includes(story.id);
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <div>
+            <img src="${TOPIC_IMAGES[story.category] || TOPIC_IMAGES.Home}" alt="${story.category}" onerror="this.onerror=null;this.src=TOPIC_IMAGES.Home;" />
+            <div class="card-body">
+              <div class="meta"><span>${story.category} · ${story.region}</span><span>${story.time}</span></div>
+              <h3>${story.title}</h3>
+              <p style="font-size:0.9rem;color:var(--muted);">${story.summary}</p>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button type="button" class="read-btn">Read</button>
+            <button type="button" class="save-btn">${isSaved ? "Saved" : "Save"}</button>
+          </div>
+        `;
+        card.querySelector(".read-btn").addEventListener("click", () => openReader(story));
+        card.querySelector(".save-btn").addEventListener("click", () => toggleSaved(story.id));
+        gridEl.appendChild(card);
+      });
+
+      paginationBar.hidden = false;
+      const endIdx = Math.min(list.length, startIdx + pageItems.length);
+      pageSummaryEl.textContent = `Showing ${startIdx + 1}–${endIdx} of ${list.length.toLocaleString("en-IN")} stories in today's edition`;
+      pageIndicatorEl.textContent = `Page ${state.page} of ${totalPages}`;
+      prevPageBtn.disabled = state.page <= 1;
+      nextPageBtn.disabled = state.page >= totalPages;
+    }
+
+    function openReader(story) {
+      const modal = document.getElementById("readerModal");
+      document.getElementById("readerTitle").textContent = story.title;
+      const sourceLinkHtml = story.link
+        ? `<a class="source-link" href="${story.link}" target="_blank" rel="noopener noreferrer">Open full article →</a>`
+        : "";
+      document.getElementById("readerBody").innerHTML = `
+        <div class="meta"><span>${story.category} · ${story.region}</span><span>${story.time}</span></div>
+        <p>${story.summary}</p>
+        <p>${story.body}</p>
+        ${sourceLinkHtml}
+      `;
+      modal.showModal();
+    }
+
+    function render() {
+      const filtered = getFilteredStories();
+      renderTabs();
+      renderTicker(filtered);
+      renderHero(filtered);
+      renderGridAndPagination(filtered);
+    }
+
+    regionSelect.addEventListener("change", (e) => {
+      state.region = e.target.value;
+      state.page = 1;
+      render();
+    });
+
+    searchInput.addEventListener("input", (e) => {
+      state.search = e.target.value;
+      state.page = 1;
+      render();
+    });
+
+    sortSelect.addEventListener("change", (e) => {
+      state.sort = e.target.value;
+      state.page = 1;
+      render();
+    });
+
+    prevPageBtn.addEventListener("click", () => {
+      if (state.page > 1) {
+        state.page--;
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+
+    nextPageBtn.addEventListener("click", () => {
+      state.page++;
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    syncBtn.addEventListener("click", () => fetchDailyEdition(true));
+
+    document.querySelectorAll("[data-modal]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = document.getElementById(btn.dataset.modal);
+        if (target) target.showModal();
+      });
+    });
+
+    document.querySelectorAll("[data-close]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = document.getElementById(btn.dataset.close);
+        if (target) target.close();
+      });
+    });
+
+    render();
+    fetchDailyEdition(false);
+    schedule1201AMRefresh();
+  </script>
+</body>
+</html>
